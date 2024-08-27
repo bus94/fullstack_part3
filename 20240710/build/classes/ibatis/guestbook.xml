@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 이 설정 파일을 sql 파일을 저장하는 xml 파일로 쓸 건지, web을 설정하는 파일로 쓸 건지 문서의 타입을 알려줘야한다. -->
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- ibatis를 사용하는 이유는 DB값들을 편리하게 가져오고 관리하기 위한 프레임워크 PreparedStatement 파마리터 
+	설정과 ResultSet 으로 어떤 자바 객체로 받을 지 설정을 미리 하는 것이다. ibatis를 실행할 때 순서 1)외부라이브러리 
+	추가 2)DB연결 정보를 저장 3)DB와 연결 및 sql 작업을 위한 처리 -->
+
+<sqlMap namespace="dto.GuestbookDTO">
+	<!-- 글 1건을 저장한다. id 속성은 sql명령을 구별할 때 사용 parameterClass 속성 sql 명령으로 DAO 클래스에서 
+		전달되는 데이터 타입 resultClass : sql 명령문이 실행되고 DAO 클래스로 리턴되는 타입을 적는다. -->
+
+	<insert id="insert" parameterClass="vo">
+		insert into guestbook (idx,
+		name, password, memo, ip) values(guestbook_idx_seq.nextval, #name#,
+		#password#, #memo#, #ip#)
+	</insert>
+
+	<select id="selectAll" parameterClass="java.util.HashMap" resultClass="vo">
+		select * from (select rownum rNum, Tb.* from (select * from guestbook order by idx desc) Tb) where rNum Between #startNo# and #endNo#
+	</select>
+
+	<select id="count" resultClass="int">
+		select count(*) from guestbook
+	</select>
+
+	<!-- 검색어가 포함된 글의 목록을 얻어오는 sql문 -->
+	<!-- ibatis를 사용할 때 부분 일치(like) 쿼리 작성 방법 오라클 : '%'||#변수명#||'%' mysql : like 
+		concat('%',#변수명#, '%') -->
+	<select id="selectListMemo" parameterClass="dto.Param"
+		resultClass="vo">
+		select * from guestbook where memo like
+		'%'||#item#||'%' order by idx desc
+	</select>
+
+	<select id="selectListName" parameterClass="dto.Param"
+		resultClass="vo">
+		select * from guestbook where name like
+		'%'||#item#||'%' order by idx desc
+	</select>
+
+	<select id="selectListTotal" parameterClass="dto.Param"
+		resultClass="vo">
+		select * from guestbook where name like
+		'%'||#item#||'%' or memo like '%'||#item#||'%' order by idx desc
+	</select>
+
+	<select id="selectByIdx" parameterClass="int"
+		resultClass="vo">
+		select * from guestbook where idx =
+		#idx# order by idx desc
+	</select>
+
+	<update id="update" parameterClass="vo">
+		update GUESTBOOK set
+		name = #name#, memo = #memo#
+		where idx = #idx#
+	</update>
+	
+	<delete id="delete" parameterClass="vo">
+		delete from GUESTBOOK 
+		where idx = #idx#
+	</delete>
+
+</sqlMap>
+
+<!-- ibatis xml 파일을 이용해서 자바빈즈(객체)를 sql statement에 자동으로 연결해서 저장하고 명령어 작성해주는 
+	것 ResultSet에서 데이터를 가져와서 자동으로 자바 객체로 생성해주는 것 -->

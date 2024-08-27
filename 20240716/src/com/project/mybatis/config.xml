@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 문서 타입 : mybatis의 설정을 하는 파일! -->
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<!-- DB 정보 파일 포함하기(경로) - 파일 시스템을 표현할 땐 .이 아니라 /를 써야 한다. 아래의 내용 또한 xml 파일이므로 /로 구분한 것 -->
+	<properties resource="com/project/mybatis/db.properties" />
+
+	<!-- DB 정보 설정 -->
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<!-- sql 파일 - 만약 여러 개의 xml 파일을 경로 설정해서 매핑 시키고 싶을 경우에는 여러 개의 매퍼 태그를 사용하면 된다. -->
+	<mappers>
+		<mapper resource="com/project/mybatis/member.xml" />
+	</mappers>
+</configuration>
+
+<!-- 
+   * config.xml
+	1) DB정보 파일 포함(경로) 
+	2) sql 파일
+	3) DB 정보 설정 
+-->

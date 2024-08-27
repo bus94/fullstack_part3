@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+	<display-name>20240711</display-name>
+
+	<!-- 정적 파일들을 처리하는 경로 설정 - 톰캣에서 기본적으로 제공하는 서블릿 - html, css, 이미지, js 등을 처리하는 클래스 파일 - DefaultServlet 
+	load-on-startup: 서블릿 초기화 시점을 제어 (서블릿이 초기화되는 순서) 
+	양수값 : 웹 애플리케이션이 시작될 때 지정 순서에 따라서 서블릿을 초기화 숫자가 작을수록 우선 순위에 따라 먼저 초기화된다.
+	0이나 음수 값이 나오면 웹 애플리케이션이 시작될 때 서블릿을 초기화하지 않고 요청이 들어왔을 때 서블릿을 초기화한다. -->
+	<servlet>
+		<servlet-name>default</servlet-name>
+		<servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<!-- 기본 서블릿 매핑 -->
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/img/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/css/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/js/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- MainController 서블릿 설정 -->
+	<servlet>
+		<servlet-name>MainController</servlet-name>
+		<servlet-class>bs.controller.MainController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MainController</servlet-name>
+		<url-pattern>*.nhn</url-pattern>
+	</servlet-mapping>
+
+</web-app>

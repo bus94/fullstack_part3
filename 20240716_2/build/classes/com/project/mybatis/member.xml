@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.dto.MemberDTO">
+	<select id="selectCount" resultType="int">
+		select count(*) from mvcboard
+	</select>
+	
+	<select id="selectAll" parameterType="java.util.HashMap" resultType="com.project.dto.MemberDTO">
+		select * from (select rownum rnum, Tb.* from (select * from mvcboard order by idx asc) Tb) where rnum between #{startNo} and #{endNo}
+	</select>
+</mapper>

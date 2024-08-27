@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+	<display-name>20240716_2</display-name>
+	
+	<!-- 정적 파일들의 경로를 서블릿에 등록시키기 -->
+	<servlet>
+		<servlet-name>default</servlet-name>
+		<servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- 정적 파일들을 매핑 시키기 -->
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/img/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/css/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/js/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- .com, .do 등등의 확장자 서블릿을 등록하기 -->
+	<servlet>
+		<servlet-name>controller</servlet-name>
+		<servlet-class>com.project.controller.MainController</servlet-class>
+	</servlet>
+
+	<!-- 확장자 서블릿 매핑 -->
+	<servlet-mapping>
+		<servlet-name>controller</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+</web-app>

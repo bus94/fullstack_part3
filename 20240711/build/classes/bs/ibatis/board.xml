@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 게시글이 올라가는  board sql 작성 파일 -->
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="bs.dto.MvcDTO">
+	<insert id="insert" parameterClass="bs.dto.MvcDTO">
+		insert into mvcboard (idx, name, subject, content, gup, lev, seq) values(MVCBOARD_SEQ.nextval, #name#, #subject#, #content#, #gup#, #lev#, #seq#)
+	</insert>
+	
+	<select id="selectAll" parameterClass="java.util.HashMap" resultClass="bs.dto.MvcDTO">
+		select * from (select rownum rNum, Tb.* from (select * from mvcboard order by idx desc) Tb) where rNum between #startNo# and #endNo#
+	</select>
+	
+	<select id="selectCount" resultClass="int">
+		select count(*) from mvcboard
+	</select>
+</sqlMap>
+
+<!-- select rownum rNum, Tb.* from (select * from mvcboard order by idx desc) Tb
+	→ rownum을 매겨줄 컬럼명 "rNum", Tb의 모든 내용에 rownum (정렬한 data)를 Tb에 담는다
+ -->

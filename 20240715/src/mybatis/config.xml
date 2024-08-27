@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 문서 타입을 지정하기 -->
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<!-- DB 연결 정보가 저장된 파일 위치 -->
+	<properties resource="mybatis/db.properties" />
+	
+	<!-- 자바  패키지명이 길 경우에는 별명을 달아서 한 단어로 줄인다. -->
+	<typeAliases>
+		<typeAlias type="dto.MvcBoardDTO" alias="dto" />
+	</typeAliases>
+
+	<!-- DB 연결 환경 설정 
+	default="development" 	(개발할 경우) 
+			"test" 			(테스트 서버에서 사용하는 환경) 
+			"production" 	(실제 운용 서버) 
+			
+	"POOLED" 연결 풀링
+	DB와 연결을 효율적으로 관리하기 위해서 미리 일정 수의 DB 연결을 생성해두고 필요할 때마다 재사용하는 기술
+	
+	풀(Pool) : 미리 생성된 DB 연결 객체들의 집합 (기본값 10개)
+	풀 매니저(Pool Manager) : 연결 풀을 관리하고, 사용 가능한 연결을 요청하는 클라이언트에게 제공하거나 반납받는 역할
+	-->
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<!-- 실행할 sql 명령이 저장된 파일의 위치 -->
+	<mappers>
+		<mapper resource="mybatis/mvcboard.xml" />
+		<!-- <mapper resource="mybatis/member.xml" /> <mapper resource="mybatis/cart.xml" 
+			/> -->
+		<!-- <mapper resource="mybatis/**/*.xml" /> : mybatis 하위에 있는 xml 모든 파일 -->
+	</mappers>
+
+</configuration>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- xml 파일의 문서 타입 
+	xml 파일의 문서 타입 정의(DTD)
+	mybatis 매퍼 xml 파일의 문서 타입
+	자바 객체와 sql 쿼리간의 매핑을 정의하는데 사용된다.
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dto.MvcBoardDTO">
+	<select id="selectAll" resultType="dto.MvcBoardDTO">
+		select * from mvcboard
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(*) from mvcboard
+	</select>
+	
+	<select id="selectByIdx" parameterType="int" resultType="dto">
+		select * from mvcboard where idx = #{idx}
+	</select>
+	
+	<update id="update" parameterType="dto">
+		update mvcboard set subject = #{subject}, content = #{content} where idx = #{idx}
+	</update>
+</mapper>	

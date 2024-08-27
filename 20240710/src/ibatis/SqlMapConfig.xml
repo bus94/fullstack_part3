@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- sqlMap 설정 파일 - DB 연결정보를 저장도 하고 DB 설정을 할 수 있다. -->
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+
+	<!-- DB 정보가 있는 파일(db.properties)의 내용을 읽어서 설정할 수 있도록 경로를 작성한다. -->
+	<properties resource="ibatis/db.properties" />
+	
+	<!-- 패키지 이름이 너무 길어서 타입을 작성할 때 불편해서 패캐지 이름을 한 단어로 줄이는 태그 -->
+	<typeAlias alias="vo" type="dto.GuestbookDTO" />
+
+	<!-- 연결 정보를 설정하기 -->
+	<transactionManager type="JDBC">
+		<dataSource type="SIMPLE">
+			<property name="JDBC.Driver" value="${driver}" />
+			<property name="JDBC.ConnectionURL" value="${url}" />
+			<property name="JDBC.Username" value="${username}" />
+			<property name="JDBC.Password" value="${password}" />
+		</dataSource>
+	</transactionManager>
+	
+	<!-- DB에 연결 후 실행할 sql 명령이 저장 되어있는 xml파일을 연결해야한다. (프로젝트 상의 경로) -->
+	<sqlMap resource="ibatis/guestbook.xml" />
+	
+</sqlMapConfig>
+

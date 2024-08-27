@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DB 정보를 설정하는 파일 xml 문서 타입을 결정하는 라이브러리를 추가 -->
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<!-- 연결 정보 가져오기 (경로포함) -->
+	<properties resource="bs/ibatis/db.properties" />
+
+	<!-- DB정보를 꺼내서 저장하기 -->
+	<transactionManager type="JDBC">
+		<dataSource type="SIMPLE">
+			<property name="JDBC.Driver" value="${driver}" />
+			<property name="JDBC.ConnectionURL" value="${url}" />
+			<property name="JDBC.Username" value="${username}" />
+			<property name="JDBC.Password" value="${password}" />
+		</dataSource>
+	</transactionManager>
+
+	<!-- DB연결 후 실행할 sql명령이 저장되어있는 파일의 프로젝트 상의 경로 -->
+	<sqlMap resource="bs/ibatis/board.xml"/>
+
+</sqlMapConfig>
